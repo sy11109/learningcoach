@@ -1,0 +1,43 @@
+日常启动
+
+打开 PowerShell 或 CMD，执行：
+
+cd "D:\claude\ai learning coach"
+npm run dev
+
+看到 Ready 后，在浏览器打开：
+
+http://localhost:3000
+
+停止服务：在运行窗口按 Ctrl+C。
+
+前提条件：首次使用已经执行过 npm install。启动后打开「设置」页填写 DeepSeek API Key、接口地址和模型（Key 不需要写进 .env.local）。学习数据和模型配置都保存在 data/app.db，重启不会丢失。注意 data/ 含明文 Key，备份或拷贝时请按敏感文件保管。
+
+用生产模式启动
+
+日常自己用开发模式就够了。想让页面加载更快，或者长期开着使用，可以：
+
+cd "D:\claude\ai learning coach"
+npm run build
+npm run start
+
+如果只希望本机访问，不让局域网其他设备打开：
+
+npm run start -- -H 127.0.0.1
+
+在「设置」页保存的模型配置会立即生效，不需要重启。只有修改 .env.local 里的可选环境变量时，才需要重启服务。
+
+如果提示 3000 端口被占用
+
+先找到占用端口的进程：
+
+Get-NetTCPConnection -LocalPort 3000 -State Listen |
+  Select-Object LocalAddress, OwningProcess
+
+然后结束它（把 <PID> 换成实际进程号）：
+
+taskkill /PID <PID> /F
+
+再重新执行 npm run dev。
+
+也可以直接双击项目根目录的「启动学习教练.bat」：它会检查 Node.js 和依赖，服务就绪后自动打开浏览器；如果服务已经在运行，只打开浏览器，不会重复启动。

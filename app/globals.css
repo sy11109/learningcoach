@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-paper: #f7f5f0;
+  --color-paper-deep: #efeae0;
+  --color-surface: #ffffff;
+  --color-ink: #191919;
+  --color-ink-soft: #3d3a35;
+  --color-muted: #6f6a61;
+  --color-line: #e4dfd4;
+  --color-line-strong: #d6cfc0;
+  --color-accent: #0e6b52;
+  --color-accent-deep: #0a4f3d;
+  --color-accent-soft: #e6f2ec;
+  --color-amber: #b45309;
+  --color-amber-soft: #fdf1e3;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdeceb;
+  --radius-card: 14px;
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Source Han Sans SC", "Noto Sans SC", "Segoe UI", system-ui, -apple-system,
+    sans-serif;
+  --font-mono: "SFMono-Regular", "Cascadia Code", Consolas, "Liberation Mono",
+    monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: #cfe8dd;
+    color: #0b3b2e;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .streaming-caret::after {
+    content: "";
+    display: inline-block;
+    width: 0.5em;
+    height: 1.05em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    border-radius: 1px;
+    background-color: var(--color-accent);
+    animation: caret-blink 1s steps(2, start) infinite;
+  }
+
+  .animate-rise {
+    animation: rise 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise {
+    animation: none;
+  }
+  .streaming-caret::after {
+    animation: none;
+  }
+}
